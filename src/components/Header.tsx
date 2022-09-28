@@ -21,11 +21,12 @@ const Header = () => {
               aria-label="Country"
               onChange={(e) => dispatch(setRegion(e.target.value))}
               style={{ cursor: 'pointer' }}
+              defaultValue="Country"
             >
               <option disabled>Country</option>
-              <option value="Ukraine">Ukraine</option>
+              <option value="Russia">Russia</option>
               <option value="USA">USA</option>
-              <option value="France">France</option>
+              <option value="China">China</option>
             </Form.Select>
           </Nav>
         </Navbar.Collapse>

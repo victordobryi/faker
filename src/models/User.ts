@@ -1,27 +1,8 @@
-interface IName {
-  title: string;
-  first: string;
-  last: string;
-}
-
-interface ILocation {
-  street: IStreet;
-  city: string;
-  state: string;
-  country: string;
-}
-interface IStreet {
-  number: number;
-  name: string;
-}
-
-interface IId {
-  value: string;
-}
-
 export interface IUser {
-  name: IName;
-  location: ILocation;
+  fullName: string;
   phone: string;
-  id: IId;
+  state: string;
+  city: string;
+  street: string;
+  id: string;
 }

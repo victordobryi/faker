@@ -4,32 +4,46 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { IUser } from '../models/User';
 import { useAppSelector } from '../redux-hooks';
+import { faker } from '@faker-js/faker';
 
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-
   const { region } = useAppSelector((state) => state.region);
 
-  const fetchData = async (users: IUser[], page: number, results: number) => {
+  const addUsers = async (users: IUser[], usersCount: number) => {
     try {
+      const newUsers = [];
       setIsLoading(true);
-      const contry =
-        region === 'Ukraine'
-          ? 'ua'
-          : region === 'USA'
-          ? 'us'
-          : region === 'France'
-          ? 'FR'
-          : 'ua';
-      const response = await fetch(
-        `https://randomuser.me/api/?results=${results}&nat=${contry}&${page}`
-      );
-
-      await response.json().then((data) => {
-        setUsers([...users, ...data.results]);
-      });
+      console.log(region);
+      region === 'Russia'
+        ? faker.setLocale('ru')
+        : region === 'USA'
+        ? faker.setLocale('en_US')
+        : region === 'China'
+        ? faker.setLocale('zh_CN')
+        : faker.setLocale('ru');
+      faker.setLocale('ru');
+      const firstName = faker.name.firstName();
+      console.log(firstName);
+      for (let i = 0; i < usersCount; i++) {
+        const fullName = faker.name.fullName();
+        const phone = faker.phone.number();
+        const state = faker.address.state();
+        const city = faker.address.city();
+        const street = faker.address.street();
+        const id = faker.datatype.uuid();
+        const user: IUser = {
+          fullName,
+          phone,
+          state,
+          city,
+          street,
+          id
+        };
+        newUsers.push(user);
+        setUsers([...users, ...newUsers]);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,23 +51,9 @@ const Users = () => {
     }
   };
 
-  const nextPage = () => {
-    setPage(page + 1);
-    fetchData(users, page, 10);
-  };
-
-  const changeDataByRegion = async () => {
-    try {
-      await fetchData([], 1, 20);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    setPage(1);
     setUsers([]);
-    changeDataByRegion();
+    addUsers([], 20);
   }, [region]);
 
   return !isLoading ? (
@@ -69,18 +69,22 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(({ id, location, name, phone }, index) => (
+          {users.map(({ street, phone, state, fullName, id, city }, index) => (
             <tr key={index + 1}>
               <td>{index + 1}</td>
-              <td>{id.value || 'no id'}</td>
-              <td>{`${name.first} ${name.last}`}</td>
-              <td>{`${location.state}, ${location.city}, ${location.street.name}, ${location.street.number}`}</td>
+              <td>{id || 'no id'}</td>
+              <td>{`${fullName}`}</td>
+              <td>{`${state}, ${city}, ${street}`}</td>
               <td>{phone}</td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Button style={{ fontSize: '14px' }} variant="dark" onClick={nextPage}>
+      <Button
+        style={{ fontSize: '14px' }}
+        variant="dark"
+        onClick={() => addUsers(users, 10)}
+      >
         Load more
       </Button>
     </>
