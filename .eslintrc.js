@@ -17,7 +17,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:jsx-a11y/recommended',
     'plugin:eslint-comments/recommended',
-    'prettier',
+    'prettier'
   ],
   rules: {
     'no-unused-vars': 'off',
@@ -27,6 +27,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn'
   }
 };
