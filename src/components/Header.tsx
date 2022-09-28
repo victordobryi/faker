@@ -24,9 +24,9 @@ const Header = () => {
               defaultValue="Country"
             >
               <option disabled>Country</option>
-              <option value="Russia">Russia</option>
-              <option value="USA">USA</option>
-              <option value="China">China</option>
+              <option value="ru">Russia</option>
+              <option value="en_US">USA</option>
+              <option value="zh_CN">China</option>
             </Form.Select>
           </Nav>
         </Navbar.Collapse>

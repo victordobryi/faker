@@ -15,33 +15,16 @@ const Users = () => {
     try {
       const newUsers = [];
       setIsLoading(true);
-      console.log(region);
-      region === 'Russia'
-        ? faker.setLocale('ru')
-        : region === 'USA'
-        ? faker.setLocale('en_US')
-        : region === 'China'
-        ? faker.setLocale('zh_CN')
-        : faker.setLocale('ru');
-      faker.setLocale('ru');
-      const firstName = faker.name.firstName();
-      console.log(firstName);
+      faker.setLocale(region || 'ru');
       for (let i = 0; i < usersCount; i++) {
-        const fullName = faker.name.fullName();
-        const phone = faker.phone.number();
-        const state = faker.address.state();
-        const city = faker.address.city();
-        const street = faker.address.street();
-        const id = faker.datatype.uuid();
-        const user: IUser = {
-          fullName,
-          phone,
-          state,
-          city,
-          street,
-          id
-        };
-        newUsers.push(user);
+        newUsers.push({
+          fullName: faker.name.fullName(),
+          phone: faker.phone.number(),
+          state: faker.address.state(),
+          city: faker.address.city(),
+          street: faker.address.street(),
+          id: faker.datatype.uuid()
+        });
         setUsers([...users, ...newUsers]);
       }
     } catch (error) {
