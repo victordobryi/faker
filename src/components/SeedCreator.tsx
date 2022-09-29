@@ -20,7 +20,7 @@ const SeedCreator = () => {
           onChange={(e) => setSeedValue(Number(e.target.value))}
         />
         <Button
-          variant="outline-secondary"
+          variant="secondary"
           id="button-addon2"
           onClick={() => dispatch(setSeed(seedValue))}
         >

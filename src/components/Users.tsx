@@ -9,7 +9,8 @@ import { faker } from '@faker-js/faker';
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { region, seed } = useAppSelector((state) => state.app);
+  const { region, seed, error } = useAppSelector((state) => state.app);
+
   const addUsers = async (users: IUser[], usersCount: number) => {
     faker.seed(seed);
     try {
