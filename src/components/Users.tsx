@@ -9,9 +9,9 @@ import { faker } from '@faker-js/faker';
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { region } = useAppSelector((state) => state.region);
-
+  const { region, seed } = useAppSelector((state) => state.app);
   const addUsers = async (users: IUser[], usersCount: number) => {
+    faker.seed(seed);
     try {
       const newUsers = [];
       setIsLoading(true);
@@ -37,7 +37,7 @@ const Users = () => {
   useEffect(() => {
     setUsers([]);
     addUsers([], 20);
-  }, [region]);
+  }, [region, seed]);
 
   return !isLoading ? (
     <>

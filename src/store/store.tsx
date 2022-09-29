@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import region from './reducers/region';
+import app from './reducers/app';
 
 const rootReducer = combineReducers({
-  region
+  app
 });
 
 export const setupStore = () => {
