@@ -9,36 +9,54 @@ import { faker } from '@faker-js/faker';
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const { region, seed, error } = useAppSelector((state) => state.app);
 
-  const addUsers = async (users: IUser[], usersCount: number) => {
+  useEffect(() => {
+    setUsers([]);
+    addUsers(20);
+  }, [region, seed]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return function () {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  const scrollHandler = () => {
+    if (
+      document.documentElement.scrollHeight -
+        (document.documentElement.scrollTop + window.innerHeight) <
+      100
+    ) {
+      addUsers(10);
+    }
+  };
+
+  const addUsers = async (usersCount: number) => {
     faker.seed(seed);
     try {
-      const newUsers = [];
       setIsLoading(true);
       faker.setLocale(region || 'ru');
       for (let i = 0; i < usersCount; i++) {
-        newUsers.push({
+        const newUser = {
           fullName: faker.name.fullName(),
           phone: faker.phone.number(),
           state: faker.address.state(),
           city: faker.address.city(),
           street: faker.address.street(),
           id: faker.datatype.uuid()
-        });
-        setUsers([...users, ...newUsers]);
+        };
+        setUsers((users) => [...users, newUser]);
       }
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) throw new Error(error.message);
     } finally {
       setIsLoading(false);
+      setIsFetching(false);
     }
   };
-
-  useEffect(() => {
-    setUsers([]);
-    addUsers([], 20);
-  }, [region, seed]);
 
   return !isLoading ? (
     <>
@@ -67,7 +85,7 @@ const Users = () => {
       <Button
         style={{ fontSize: '14px' }}
         variant="dark"
-        onClick={() => addUsers(users, 10)}
+        onClick={() => addUsers(10)}
       >
         Load more
       </Button>
