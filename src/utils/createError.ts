@@ -20,7 +20,7 @@ const removeSymbol = (field: string, rndNum: number) => {
 const addSymbol = (field: string, rndNum: number) => {
   const randomLetter = cyrillicPattern.test(field[0])
     ? String.fromCharCode(getRandomNumber(1072, 1104))
-    : numPattern.test(field[1])
+    : numPattern.test(field.replace(/[^0-9]/g, ''))
     ? getRandomNumber(0, 9)
     : String.fromCharCode(getRandomNumber(97, 123));
   const letterInWord = field.substring(rndNum, rndNum + 1);
