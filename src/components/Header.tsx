@@ -3,12 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
-import { regionSlice } from '../store/reducers/region';
+import { appSlice } from '../store/reducers/app';
 import { useAppDispatch } from '../redux-hooks';
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const { setRegion } = regionSlice.actions;
+  const { setRegion } = appSlice.actions;
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -21,11 +21,12 @@ const Header = () => {
               aria-label="Country"
               onChange={(e) => dispatch(setRegion(e.target.value))}
               style={{ cursor: 'pointer' }}
+              defaultValue="Country"
             >
               <option disabled>Country</option>
-              <option value="Ukraine">Ukraine</option>
-              <option value="USA">USA</option>
-              <option value="France">France</option>
+              <option value="ru">Russia</option>
+              <option value="en_US">USA</option>
+              <option value="zh_CN">China</option>
             </Form.Select>
           </Nav>
         </Navbar.Collapse>
