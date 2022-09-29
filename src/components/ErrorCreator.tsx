@@ -23,6 +23,7 @@ const ErrorCreator = () => {
           type="number"
           value={errorsValue}
           onChange={(e) => setErrorsValue(Number(e.target.value))}
+          step="0.01"
         />
         <Form.Range
           min="0"
