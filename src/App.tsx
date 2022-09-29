@@ -16,7 +16,7 @@ export const App = () => (
         <SeedCreator />
       </Container>
       <Container
-        className="d-flex align-items-end justify-content-center mt-4"
+        className="d-flex  justify-content-center mt-4"
         style={{ fontSize: '18px' }}
       >
         <Users />

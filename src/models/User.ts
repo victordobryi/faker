@@ -5,4 +5,5 @@ export interface IUser {
   city: string;
   street: string;
   id: string;
+  [key: string]: string;
 }

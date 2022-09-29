@@ -26,7 +26,7 @@ const Header = () => {
               <option disabled>Country</option>
               <option value="ru">Russia</option>
               <option value="en_US">USA</option>
-              <option value="zh_CN">China</option>
+              <option value="fr">France</option>
             </Form.Select>
           </Nav>
         </Navbar.Collapse>
